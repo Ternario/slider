@@ -5,25 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="assests/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     
 </head>
 <body>
-    <ul id="slides" class="slides">
-        <li class="slide active"><img src="assests/img/slide-10.jpg" class="img" alt="img"></li>
-        <li class="slide"><img src="assests/img/slide-4.jpg" class="img" alt="img"></li>
-        <li class="slide"><img src="assests/img/slide-5.jpg" class="img" alt="img"></li>
-        <li class="slide"><img src="assests/img/slide-6.jpg" class="img" alt="img"></li>
-        <li class="slide"><img src="assests/img/slide-9.jpg" class="img" alt="img"></li>
-    </ul>
-
-    <div class="controls">
-        <button class="control" id="prev">Prev</button>
-        <button class="control" id="pause">Pause</button>
-        <button class="control" id="next">Next</button>
+    <div class="container">
+        <div class="slides">
+            <div class="slide active" style="background-image: url(assets/img/slide-4.jpg)"></div>
+            <div class="slide" style="background-image: url(assets/img/img-html@2x.png)"></div>
+            <div class="slide" style="background-image: url(assets/img/img-header@2x.png)"></div>
+            <div class="slide" style="background-image: url(assets/img/slide-9.jpg)"></div>
+            <div class="slide" style="background-image: url(assets/img/slide-10.jpg)"></div>
+        </div>
+        
+    
+        <div class="controls">
+            <div class="controls_display">
+                <div class="control" id="prev">Prev</div>
+                <div class="control" id="pause">Pause</div>
+                <div class="control" id="next">Next</div>
+            </div>
+        </div>
+    
+        <div class="indicators_display">
+            <div class="indicators">
+                <div class="indicator active" data-slide-to="0"></div>
+                <div class="indicator" data-slide-to="1"></div>
+                <div class="indicator" data-slide-to="2"></div>
+                <div class="indicator" data-slide-to="3"></div>
+                <div class="indicator" data-slide-to="4"></div>
+            </div>
+        </div>
     </div>
 
-    <script src="assests/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
       
 </body>
 
