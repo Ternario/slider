@@ -47,7 +47,7 @@ let play = () => {
     pauseBtn.classList.toggle('active');
     playBtn.classList.toggle('active');
 
-}
+};
 
 function PlayPouse() {
     if (playing) {
@@ -79,10 +79,11 @@ function goToNext () {
 
 playBtn.onclick = () => {
     pause();
-}
+};
+
 pauseBtn.onclick = () => {
     play();
-}
+};
 
 prevBtn.onclick = () => {
     goToPrev();
