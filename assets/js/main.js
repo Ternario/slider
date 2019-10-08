@@ -1,4 +1,5 @@
 let slides = document.querySelectorAll('.slide');
+let playBtn = document.querySelector('#play');
 let pauseBtn = document.querySelector('#pause');
 let prevBtn = document.querySelector('#prev');
 let nextBtn = document.querySelector('#next');
@@ -36,34 +37,52 @@ let gotoSlide = (n) => {
 let pause = () => {
     playing = !playing;
     clearInterval(timerID);
-    pauseBtn.innerHTML = 'Play';
+    pauseBtn.classList.toggle('active');
+    playBtn.classList.toggle('active');
 };
+
+let play = () => {
+    playing = !playing
+    timerID = setInterval(nextSlide, timeInterval);
+    pauseBtn.classList.toggle('active');
+    playBtn.classList.toggle('active');
+
+}
 
 function PlayPouse() {
     if (playing) {
         playing = !playing;
         clearInterval(timerID);
-        pauseBtn.innerHTML = 'Play';
+        pauseBtn.classList.add('active');
+        playBtn.classList.remove('active'); 
     } else {
         playing = !playing;
         timerID = setInterval(nextSlide, timeInterval);
-        pauseBtn.innerHTML = 'Pause';
+        pauseBtn.classList.remove('active');
+        playBtn.classList.add('active'); 
     };
-};
-
-pauseBtn.onclick = () => {
-    PlayPouse();
 };
 
 function goToPrev () {
     pause();
     gotoSlide(currentSlide - 1);
+    pauseBtn.classList.add('active');
+    playBtn.classList.remove('active'); 
 };
 
 function goToNext () {
     pause();
-    gotoSlide(currentSlide + 1);  
+    gotoSlide(currentSlide + 1);
+    pauseBtn.classList.add('active');
+    playBtn.classList.remove('active'); 
 };
+
+playBtn.onclick = () => {
+    pause();
+}
+pauseBtn.onclick = () => {
+    play();
+}
 
 prevBtn.onclick = () => {
     goToPrev();
@@ -78,26 +97,20 @@ let clickIndicator = function(e) {
 
     if(target.classList.contains('indicator')){
         pause();
+        pauseBtn.classList.add('active');
+        playBtn.classList.remove('active');
         gotoSlide(+target.getAttribute('data-slide-to'));
     }
 };
 
 inContainer.addEventListener('click', clickIndicator);
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keyup', function(e) {
     if(e.code == KEY_LEFT) {
         goToPrev();
-    }
-});
-
-document.addEventListener('keydown', function(e) {
-    if(e.code == KEY_RIGHT) {
+    } else if(e.code == KEY_RIGHT) {
         goToNext();
-    }
-});
-
-document.addEventListener('keydown', function(e) {
-    if(e.code == SPACE) {
+    } else if(e.code == SPACE) {
         PlayPouse();
     }
 });
