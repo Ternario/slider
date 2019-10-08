@@ -8,7 +8,7 @@ let indTimes = document.querySelectorAll('.indicator');
 
 let currentSlide = 0;
 let playing = true;
-let timeInterval = 3000;
+let timeInterval = 2000;
 let timerID;
 let length = slides.length;
 
@@ -16,7 +16,7 @@ const KEY_RIGHT = 'ArrowRight';
 const KEY_LEFT = 'ArrowLeft';
 const SPACE = 'Space';
 
-function nextSlide() {
+let nextSlide = () => {
     slides[currentSlide].classList.toggle('active');
     indTimes[currentSlide].classList.toggle('active'); 
     currentSlide = (currentSlide + 1) % length;
@@ -35,73 +35,49 @@ let gotoSlide = (n) => {
 };
 
 let pause = () => {
-    playing = !playing;
+    playing = false;
     clearInterval(timerID);
-    pauseBtn.classList.toggle('active');
-    playBtn.classList.toggle('active');
+    pauseBtn.classList.add('active');
+    playBtn.classList.remove('active'); 
 };
 
 let play = () => {
-    playing = !playing
+    playing = true;
     timerID = setInterval(nextSlide, timeInterval);
-    pauseBtn.classList.toggle('active');
-    playBtn.classList.toggle('active');
-
+    pauseBtn.classList.remove('active');
+    playBtn.classList.add('active'); 
 };
 
-function PlayPouse() {
+let PlayPause = () => {
     if (playing) {
-        playing = !playing;
-        clearInterval(timerID);
-        pauseBtn.classList.add('active');
-        playBtn.classList.remove('active'); 
+        pause();
     } else {
-        playing = !playing;
-        timerID = setInterval(nextSlide, timeInterval);
-        pauseBtn.classList.remove('active');
-        playBtn.classList.add('active'); 
+        play();
     };
 };
 
-function goToPrev () {
+let goToPrev = () => {
     pause();
     gotoSlide(currentSlide - 1);
-    pauseBtn.classList.add('active');
-    playBtn.classList.remove('active'); 
 };
 
-function goToNext () {
+let goToNext = () => {
     pause();
     gotoSlide(currentSlide + 1);
-    pauseBtn.classList.add('active');
-    playBtn.classList.remove('active'); 
 };
 
-playBtn.onclick = () => {
-    pause();
-};
+playBtn.addEventListener('click', pause);
+pauseBtn.addEventListener('click', play);
+prevBtn.addEventListener('click', goToPrev);
+nextBtn.addEventListener('click', goToNext);
 
-pauseBtn.onclick = () => {
-    play();
-};
-
-prevBtn.onclick = () => {
-    goToPrev();
-};
-
-nextBtn.onclick = () => {
-    goToNext();
-};
-
-let clickIndicator = function(e) {
+let clickIndicator = (e) => {
     let target = e.target;
 
     if(target.classList.contains('indicator')){
         pause();
-        pauseBtn.classList.add('active');
-        playBtn.classList.remove('active');
         gotoSlide(+target.getAttribute('data-slide-to'));
-    }
+    };
 };
 
 inContainer.addEventListener('click', clickIndicator);
@@ -112,6 +88,6 @@ document.addEventListener('keyup', function(e) {
     } else if(e.code == KEY_RIGHT) {
         goToNext();
     } else if(e.code == SPACE) {
-        PlayPouse();
-    }
+        PlayPause();
+    };
 });
